@@ -1,3 +1,4 @@
+import csv
 
 class NameCheck:
     def __init__(self, check_title, check_alpha):
@@ -23,9 +24,16 @@ class Student:
     first_name = NameCheck(str.istitle, str.isalpha)
     last_name = NameCheck(str.istitle, str.isalpha)
 
-
     def __init__(self, name, subjects_file):
         self.first_name, self.last_name = name.split(' ')
+        self.subject = subject = {}
+
+        with open(subjects_file, 'r', encoding='utf-8') as file:
+            csv_file = list(csv.reader(file, dialect='excel-tab'))
+            for line in csv_file:
+                sub_list = line[0].split(',')
+                for sub in sub_list:
+                    self.subject.setdefault(sub)
 
 
 
@@ -49,4 +57,4 @@ class Student:
 
 
 student = Student("Иван Иванов", "subjects.csv")
-# print(a.__dict__)
+print(student.__dict__)
